@@ -4,14 +4,30 @@
     <title>NeuralGuard Security Dashboard</title>
     <style>
         body {
-            background: #0b0f17;
+            background: #050b17;
             color: white;
             font-family: Arial;
             text-align: center;
         }
+
         h1 {
             color: #00ffd5;
+            margin-top: 20px;
         }
+
+        #riskMeter {
+            width: 300px;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .low { background: green; }
+        .medium { background: orange; }
+        .high { background: red; }
+
         .alert-box {
             background: #1c2433;
             margin: 20px auto;
@@ -22,19 +38,45 @@
         }
     </style>
 </head>
+
 <body>
 
 <h1>🚀 NeuralGuard Live Security Monitor</h1>
 
+<div id="riskMeter" class="low">SYSTEM SAFE</div>
+
 <div id="alerts"></div>
 
 <script>
+
 async function loadAlerts(){
     let res = await fetch("/alerts");
     let data = await res.json();
 
     let container = document.getElementById("alerts");
     container.innerHTML = "";
+
+    let riskDiv = document.getElementById("riskMeter");
+
+    if(data.length === 0){
+        riskDiv.className = "low";
+        riskDiv.innerText = "SYSTEM SAFE";
+    }else{
+        let latest = data[data.length - 1];
+
+        if(latest.risk === "HIGH"){
+            riskDiv.className = "high";
+            riskDiv.innerText = "🔴 HIGH SECURITY RISK";
+        }
+        else if(latest.risk === "MEDIUM"){
+            riskDiv.className = "medium";
+            riskDiv.innerText = "🟡 MEDIUM SECURITY RISK";
+        }
+        else{
+            riskDiv.className = "low";
+            riskDiv.innerText = "🟢 LOW SECURITY RISK";
+        }
+    }
 
     data.reverse().forEach(alert=>{
         container.innerHTML += `
@@ -49,6 +91,7 @@ async function loadAlerts(){
 }
 
 setInterval(loadAlerts, 2000);
+
 </script>
 
 </body>

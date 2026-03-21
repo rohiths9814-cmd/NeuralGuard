@@ -30,7 +30,7 @@
 
 <script>
 async function loadAlerts(){
-    let res = await fetch("http://127.0.0.1:5000/alerts");
+    let res = await fetch("/alerts");
     let data = await res.json();
 
     let container = document.getElementById("alerts");

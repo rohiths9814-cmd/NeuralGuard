@@ -1,0 +1,31 @@
+# ── Render Blueprint ─────────────────────────────────────────────────────────
+# Deploy with: https://render.com/deploy → Connect GitHub repo
+# Or auto-detected from this file when linking the repo.
+
+services:
+  - type: web
+    name: neuralguard
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      cd dashboard && npm install && npm run build && cd ..
+    startCommand: uvicorn server.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false   # You'll set this manually in the Render dashboard
+      - key: VIDEO_SOURCE
+        value: mock
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: NODE_VERSION
+        value: "20.18.1"
+      - key: YOLO_MODEL
+        value: yolov8n.pt
+      - key: YOLO_CONFIDENCE
+        value: "0.5"
+      - key: DETECTION_INTERVAL
+        value: "2.0"
+      - key: CROWD_THRESHOLD
+        value: "5"

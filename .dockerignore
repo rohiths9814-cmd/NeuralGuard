@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+venv/
+env/
+.venv/
+
+# Node
+node_modules/
+dashboard/node_modules/
+dashboard/dist/
+
+# Environment (secrets set via Cloud Run env vars)
+.env
+*.env.local
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# YOLO models (not needed for mock mode)
+*.pt
+*.onnx
+
+# Logs
+*.log
+logs/
+
+# Render config (not needed for GCP)
+render.yaml
+build.sh
+
+# Docker
+Dockerfile
+.dockerignore

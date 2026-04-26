@@ -1,0 +1,12 @@
+# === Core ===
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+websockets>=14.0
+python-multipart>=0.0.9
+pydantic>=2.11.0
+python-dotenv>=1.0.1
+aiofiles>=24.1.0
+
+# === AI / ML ===
+google-generativeai>=0.8.0
+numpy>=2.2.0

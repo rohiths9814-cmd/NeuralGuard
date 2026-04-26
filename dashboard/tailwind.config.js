@@ -5,17 +5,20 @@ export default {
     extend: {
       colors: {
         neural: {
-          bg: '#06080f',
-          surface: '#0d1117',
-          card: '#151b25',
-          border: '#1e2a3a',
-          accent: '#00e5ff',
-          green: '#00ff88',
-          amber: '#ffaa00',
-          red: '#ff3344',
-          purple: '#a855f7',
-          text: '#e2e8f0',
-          muted: '#64748b',
+          bg: '#030712',
+          surface: '#0a0f1e',
+          card: '#111827',
+          border: '#1f2937',
+          accent: '#6366f1',       // Indigo — primary accent
+          'accent-light': '#818cf8',
+          cyan: '#22d3ee',
+          green: '#34d399',
+          amber: '#fbbf24',
+          red: '#f43f5e',
+          purple: '#a78bfa',
+          blue: '#60a5fa',
+          text: '#f1f5f9',
+          muted: '#94a3b8',
         },
       },
       fontFamily: {
@@ -26,7 +29,8 @@ export default {
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
         'scan-line': 'scan-line 3s linear infinite',
         'fade-in': 'fade-in 0.5s ease-out',
-        'slide-up': 'slide-up 0.4s ease-out',
+        'slide-up': 'slide-up 0.3s ease-out both',
+        'shimmer': 'shimmer 2s linear infinite',
       },
       keyframes: {
         'pulse-glow': {
@@ -42,8 +46,12 @@ export default {
           to: { opacity: '1' },
         },
         'slide-up': {
-          from: { opacity: '0', transform: 'translateY(12px)' },
+          from: { opacity: '0', transform: 'translateY(8px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'shimmer': {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         },
       },
     },

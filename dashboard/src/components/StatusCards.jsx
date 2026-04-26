@@ -31,35 +31,41 @@ export default function StatusCards({ status, event }) {
           label="People Detected"
           value={event?.vision?.people_count ?? '-'}
           icon="👥"
-          color="text-neural-accent"
+          color="text-neural-cyan"
+          glow="shadow-neural-cyan/10"
         />
         <MetricCard
           label="Motion Intensity"
           value={event?.vision ? `${(event.vision.motion_intensity * 100).toFixed(0)}%` : '-'}
           icon="📊"
           color="text-neural-purple"
+          glow="shadow-neural-purple/10"
         />
         <MetricCard
           label="Temperature"
           value={sensor.temperature ? `${sensor.temperature}°C` : '-'}
           icon="🌡️"
           color={sensor.temperature > 40 ? 'text-neural-red' : 'text-neural-green'}
+          glow={sensor.temperature > 40 ? 'shadow-neural-red/10' : 'shadow-neural-green/10'}
         />
         <MetricCard
           label="Confidence"
           value={fusion.confidence ? `${(fusion.confidence * 100).toFixed(0)}%` : '-'}
           icon="🎯"
           color="text-neural-amber"
+          glow="shadow-neural-amber/10"
         />
       </div>
 
       {/* Agent Status Grid */}
       <div className="glass-card">
-        <div className="px-4 py-2.5 border-b border-neural-border/50">
+        <div className="px-4 py-3 border-b border-neural-border/40">
           <div className="flex items-center gap-2">
-            <span className="text-neural-accent">⚙️</span>
-            <span className="text-xs font-mono text-neural-muted uppercase tracking-wider">
-              Agent Status — {Object.keys(agents).length} Active
+            <div className="w-6 h-6 rounded-lg bg-neural-accent/15 flex items-center justify-center">
+              <span className="text-sm">⚙️</span>
+            </div>
+            <span className="section-label">
+              Agent Pipeline — {Object.keys(agents).length} Active
             </span>
           </div>
         </div>
@@ -73,19 +79,21 @@ export default function StatusCards({ status, event }) {
       {/* Fusion Explanation */}
       {fusion.explanation && (
         <div className="glass-card p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <span>🤖</span>
-            <span className="text-xs font-mono text-neural-accent uppercase tracking-wider">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-6 h-6 rounded-lg bg-neural-accent/15 flex items-center justify-center">
+              <span className="text-sm">🤖</span>
+            </div>
+            <span className="section-label">
               AI Analysis {fusion.gemini_analysis ? '(Gemini)' : '(Rule-based)'}
             </span>
           </div>
-          <p className="text-sm text-neural-text leading-relaxed">
+          <p className="text-sm text-neural-text/90 leading-relaxed">
             {fusion.explanation}
           </p>
           {fusion.contributing_factors?.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mt-3">
               {fusion.contributing_factors.map((f, i) => (
-                <span key={i} className="px-2 py-0.5 rounded bg-neural-accent/10 text-neural-accent text-[10px] font-mono">
+                <span key={i} className="px-2.5 py-1 rounded-lg bg-neural-accent/10 text-neural-accent-light text-[10px] font-mono border border-neural-accent/15">
                   {f}
                 </span>
               ))}
@@ -97,14 +105,14 @@ export default function StatusCards({ status, event }) {
   );
 }
 
-function MetricCard({ label, value, icon, color }) {
+function MetricCard({ label, value, icon, color, glow }) {
   return (
-    <div className="glass-card-hover p-3">
+    <div className={`glass-card-hover p-4 shadow-lg ${glow}`}>
       <div className="flex items-center justify-between">
-        <span className="text-lg">{icon}</span>
-        <span className={`text-xl font-bold font-mono ${color}`}>{value}</span>
+        <span className="text-xl">{icon}</span>
+        <span className={`text-2xl font-bold font-mono ${color}`}>{value}</span>
       </div>
-      <p className="text-[10px] font-mono text-neural-muted uppercase tracking-wider mt-1.5">
+      <p className="text-[10px] font-mono text-neural-muted uppercase tracking-wider mt-2">
         {label}
       </p>
     </div>
@@ -116,10 +124,10 @@ function AgentCard({ id, agent }) {
   const statusColor = STATUS_COLORS[agent.status] || STATUS_COLORS.offline;
 
   return (
-    <div className="bg-neural-surface/60 rounded-lg border border-neural-border/30 p-2.5 flex items-center gap-2.5">
-      <span className="text-base">{icon}</span>
+    <div className="bg-neural-surface/50 rounded-xl border border-neural-border/25 p-3 flex items-center gap-3 hover:border-neural-border/50 transition-colors">
+      <span className="text-lg">{icon}</span>
       <div className="min-w-0 flex-1">
-        <p className="text-xs font-medium text-white truncate">{agent.name}</p>
+        <p className="text-xs font-medium text-neural-text truncate">{agent.name}</p>
         <div className="flex items-center gap-1.5 mt-0.5">
           <span className={`w-1.5 h-1.5 rounded-full ${statusColor}`} />
           <span className="text-[10px] font-mono text-neural-muted uppercase">{agent.status}</span>

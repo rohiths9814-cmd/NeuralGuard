@@ -1,3 +1,6 @@
+/* ─── Google Fonts ────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,62 +8,75 @@
 /* ─── Global ──────────────────────────────────────────────────────────── */
 
 :root {
-  --glow-cyan: 0 0 20px rgba(0, 229, 255, 0.3);
-  --glow-green: 0 0 20px rgba(0, 255, 136, 0.3);
-  --glow-red: 0 0 20px rgba(255, 51, 68, 0.4);
-  --glow-amber: 0 0 20px rgba(255, 170, 0, 0.3);
+  --glow-indigo: 0 0 24px rgba(99, 102, 241, 0.25);
+  --glow-cyan: 0 0 20px rgba(34, 211, 238, 0.2);
+  --glow-green: 0 0 20px rgba(52, 211, 153, 0.2);
+  --glow-red: 0 0 20px rgba(244, 63, 94, 0.3);
+  --glow-amber: 0 0 20px rgba(251, 191, 36, 0.2);
+}
+
+html {
+  background: #030712;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #1e2a3a #0d1117;
+  scrollbar-color: #1f2937 #0a0f1e;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d1117;
+  background: #0a0f1e;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e2a3a;
+  background: #374151;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a3a4e;
+  background: #4b5563;
 }
 
-/* ─── Glassmorphism Card ──────────────────────────────────────────────── */
+/* ─── Component Layer ─────────────────────────────────────────────────── */
 
 @layer components {
+
+  /* Glass Card */
   .glass-card {
-    @apply bg-neural-card/80 backdrop-blur-md border border-neural-border/50
-           rounded-xl shadow-lg;
+    @apply bg-neural-card/70 backdrop-blur-xl border border-neural-border/40
+           rounded-2xl shadow-lg;
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-300;
+    @apply glass-card transition-all duration-300 ease-out;
   }
   .glass-card-hover:hover {
-    @apply border-neural-accent/30 shadow-[var(--glow-cyan)];
+    @apply border-neural-accent/40 shadow-[var(--glow-indigo)] scale-[1.01];
   }
 
   /* Threat-level badges */
   .badge-low {
-    @apply bg-neural-green/15 text-neural-green border border-neural-green/30
-           px-2.5 py-0.5 rounded-full text-xs font-mono font-medium uppercase tracking-wider;
+    @apply bg-neural-green/10 text-neural-green border border-neural-green/25
+           px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider;
   }
   .badge-moderate {
-    @apply bg-neural-amber/15 text-neural-amber border border-neural-amber/30
-           px-2.5 py-0.5 rounded-full text-xs font-mono font-medium uppercase tracking-wider;
+    @apply bg-neural-amber/10 text-neural-amber border border-neural-amber/25
+           px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider;
   }
   .badge-high {
-    @apply bg-orange-500/15 text-orange-400 border border-orange-500/30
-           px-2.5 py-0.5 rounded-full text-xs font-mono font-medium uppercase tracking-wider;
+    @apply bg-orange-500/10 text-orange-400 border border-orange-500/25
+           px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider;
   }
   .badge-critical {
-    @apply bg-neural-red/15 text-neural-red border border-neural-red/30
-           px-2.5 py-0.5 rounded-full text-xs font-mono font-medium uppercase tracking-wider
+    @apply bg-neural-red/10 text-neural-red border border-neural-red/25
+           px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider
            animate-pulse-glow;
   }
 
@@ -72,17 +88,24 @@
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 229, 255, 0.015) 2px,
-      rgba(0, 229, 255, 0.015) 4px
+      rgba(99, 102, 241, 0.012) 2px,
+      rgba(99, 102, 241, 0.012) 4px
     );
     pointer-events: none;
   }
 
-  /* Grid background */
+  /* Subtle grid background */
   .grid-bg {
+    background-color: #030712;
     background-image:
-      linear-gradient(rgba(30, 42, 58, 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30, 42, 58, 0.3) 1px, transparent 1px);
-    background-size: 40px 40px;
+      radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
+      linear-gradient(rgba(31, 41, 55, 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 41, 55, 0.2) 1px, transparent 1px);
+    background-size: 100% 100%, 48px 48px, 48px 48px;
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-xs font-mono text-neural-muted uppercase tracking-wider;
   }
 }

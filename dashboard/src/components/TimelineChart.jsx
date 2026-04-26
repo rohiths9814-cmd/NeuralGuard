@@ -38,15 +38,17 @@ export default function TimelineChart({ events }) {
 
   return (
     <div className="glass-card">
-      <div className="px-4 py-2.5 border-b border-neural-border/50 flex items-center justify-between">
+      <div className="px-4 py-3 border-b border-neural-border/40 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-neural-accent">📈</span>
-          <span className="text-xs font-mono text-neural-muted uppercase tracking-wider">
+          <div className="w-6 h-6 rounded-lg bg-neural-cyan/15 flex items-center justify-center">
+            <span className="text-sm">📈</span>
+          </div>
+          <span className="section-label">
             Real-time Timeline
           </span>
         </div>
-        <span className="text-[10px] font-mono text-neural-muted">
-          {chartData.length} data points
+        <span className="text-[10px] font-mono text-neural-muted bg-neural-surface/80 px-2 py-0.5 rounded-md">
+          {chartData.length} pts
         </span>
       </div>
 
@@ -63,20 +65,20 @@ export default function TimelineChart({ events }) {
             <AreaChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="gradPeople" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#00e5ff" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="#00e5ff" stopOpacity={0.0} />
+                  <stop offset="0%" stopColor="#22d3ee" stopOpacity={0.3} />
+                  <stop offset="100%" stopColor="#22d3ee" stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="gradMotion" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#a855f7" stopOpacity={0.3} />
                   <stop offset="100%" stopColor="#a855f7" stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="gradThreat" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ff3344" stopOpacity={0.4} />
-                  <stop offset="100%" stopColor="#ff3344" stopOpacity={0.0} />
+                  <stop offset="0%" stopColor="#f43f5e" stopOpacity={0.4} />
+                  <stop offset="100%" stopColor="#f43f5e" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
 
-              <CartesianGrid strokeDasharray="3 6" stroke="#1e2a3a" />
+              <CartesianGrid strokeDasharray="3 6" stroke="#1f2937" />
               <XAxis
                 dataKey="time"
                 stroke="#64748b"
@@ -99,7 +101,7 @@ export default function TimelineChart({ events }) {
                 type="monotone"
                 dataKey="people"
                 name="People"
-                stroke="#00e5ff"
+                stroke="#22d3ee"
                 strokeWidth={2}
                 fill="url(#gradPeople)"
               />
@@ -115,7 +117,7 @@ export default function TimelineChart({ events }) {
                 type="monotone"
                 dataKey="threat"
                 name="Threat"
-                stroke="#ff3344"
+                stroke="#f43f5e"
                 strokeWidth={2}
                 fill="url(#gradThreat)"
                 yAxisId={0}

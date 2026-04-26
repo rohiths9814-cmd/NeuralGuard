@@ -8,10 +8,10 @@
 import { useRef, useEffect } from 'react';
 
 const THREAT_COLORS = {
-  low: '#00ff88',
-  moderate: '#ffaa00',
-  high: '#ff8800',
-  critical: '#ff3344',
+  low: '#34d399',
+  moderate: '#fbbf24',
+  high: '#fb923c',
+  critical: '#f43f5e',
 };
 
 export default function LiveVideoPanel({ event }) {
@@ -51,7 +51,7 @@ export default function LiveVideoPanel({ event }) {
       ctx.fillRect(0, 0, W, H);
 
       // Grid
-      ctx.strokeStyle = 'rgba(0, 229, 255, 0.04)';
+      ctx.strokeStyle = 'rgba(99, 102, 241, 0.04)';
       ctx.lineWidth = 0.5;
       for (let x = 0; x < W; x += 40) {
         ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
@@ -67,7 +67,7 @@ export default function LiveVideoPanel({ event }) {
         p.y += p.vy;
         if (p.x < 0 || p.x > W) p.vx *= -1;
         if (p.y < 0 || p.y > H) p.vy *= -1;
-        ctx.fillStyle = `rgba(0, 229, 255, ${0.1 + Math.sin(frame * 0.02 + p.x) * 0.05})`;
+        ctx.fillStyle = `rgba(99, 102, 241, ${0.1 + Math.sin(frame * 0.02 + p.x) * 0.05})`;
         ctx.fillRect(p.x, p.y, p.size, p.size);
       });
 
@@ -105,7 +105,7 @@ export default function LiveVideoPanel({ event }) {
       });
 
       // HUD — top overlay
-      ctx.fillStyle = 'rgba(0, 229, 255, 0.8)';
+      ctx.fillStyle = 'rgba(129, 140, 248, 0.85)';
       ctx.font = '11px "JetBrains Mono", monospace';
       ctx.fillText(`CAM_01 │ ${new Date().toLocaleTimeString()}`, 12, 22);
 
@@ -121,7 +121,7 @@ export default function LiveVideoPanel({ event }) {
       const scanY = (frame * 2) % H;
       const grad = ctx.createLinearGradient(0, scanY - 20, 0, scanY + 20);
       grad.addColorStop(0, 'transparent');
-      grad.addColorStop(0.5, 'rgba(0, 229, 255, 0.06)');
+      grad.addColorStop(0.5, 'rgba(99, 102, 241, 0.06)');
       grad.addColorStop(1, 'transparent');
       ctx.fillStyle = grad;
       ctx.fillRect(0, scanY - 20, W, 40);
@@ -136,11 +136,11 @@ export default function LiveVideoPanel({ event }) {
   }, [vision, threat, people, motion]);
 
   return (
-    <div className="glass-card overflow-hidden relative" style={{ boxShadow: `0 0 30px ${borderColor}15` }}>
-      <div className="px-4 py-2.5 border-b border-neural-border/50 flex items-center justify-between">
+    <div className="glass-card overflow-hidden relative" style={{ boxShadow: `0 0 40px ${borderColor}10` }}>
+      <div className="px-4 py-3 border-b border-neural-border/40 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-neural-red animate-pulse" />
-          <span className="text-xs font-mono text-neural-muted uppercase tracking-wider">Live Feed — Camera 01</span>
+          <span className="section-label">Live Feed — Camera 01</span>
         </div>
         <span className={`badge-${threat}`}>{threat}</span>
       </div>
